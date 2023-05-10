@@ -33,3 +33,29 @@ data_subset <- data %>%
 ```
 
 # 
+````{r rand_eda}
+ggplot(data = data_subset) +
+  geom_bar(mapping = aes(x = pres, fill = sex))
+
+ggplot(data = data_subset) +
+  geom_bar(mapping = aes(x = pres, fill = party))
+
+ggplot(data = data_subset) +
+  geom_bar(mapping = aes(x = pres, fill = sizeplac))
+
+ggplot(data = data_subset) +
+  geom_bar(mapping = aes(x = pres, fill = vote2016))
+
+ggplot(data = data_subset) +
+  geom_bar(mapping = aes(x = pres, fill = climatec))
+
+ggplot(data = data_subset) +
+  geom_boxplot(mapping = aes(x = pres, y = weight)) +
+  scale_y_log10()
+```
+
+```{r prob_wts}
+data_subset <- data_subset %>%
+  mutate(prob_wts = weight / sum(weight))
+```
+
