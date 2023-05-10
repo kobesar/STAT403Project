@@ -11,6 +11,25 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 
 data <- read.csv("data/31119913_National2020.csv")
+
+cols <- str_split("age10
+sex
+educ18
+income20
+racism20
+life
+party
+stanum
+sizeplac
+pres
+weight
+vote2016
+votemeth
+abortion
+climatec", "\n")[[1]]
+
+data_subset <- data %>% 
+  select(cols)
 ```
 
 # 
