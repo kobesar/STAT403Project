@@ -52,3 +52,27 @@ for(i in 1:1000) {
 hist(biden_perc2)
 abline(v = 0.5, col = "red", lwd = 2)
 mean(biden_perc2 > 0.5)
+
+# This took like 1 hour to run lol
+
+state_boot <- list()
+
+for (state in data_pres_subset$stanum) {
+  temp <- data_pres_subset %>% 
+    filter(stanum == !!state)
+  
+  n <- nrow(temp)
+  
+  biden_perc_state <- c()
+  
+  for (i in 1:500) {
+    j <- sample(n, n, replace = T)
+    samp <- temp[j,]
+    num_biden <- sum((temp$pres == "Joe Biden") * temp$weight)
+    biden_perc_state[i] <- num_biden / sum(temp$weight)
+  }
+  
+  state_boot[[state]] <- mean(biden_perc_state > 0.5)
+}
+
+saveRDS(state_boot, file = "state_boot.RDS")
