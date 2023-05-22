@@ -38,6 +38,7 @@ for(i in 1:1000) {
 
 hist(biden_perc)
 mean(biden_perc > 0.5)
+saveRDS(biden_perc, file = "pop_vote_no_wts.RDS")
 
 # Boot with weight
 biden_perc2 <- c()
@@ -52,6 +53,7 @@ for(i in 1:1000) {
 hist(biden_perc2)
 abline(v = 0.5, col = "red", lwd = 2)
 mean(biden_perc2 > 0.5)
+saveRDS(biden_perc2, file = "pop_vote_wts.RDS")
 
 # This took like 1 hour to run lol
 
