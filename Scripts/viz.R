@@ -1,7 +1,7 @@
 library(tidyverse)
 
-pop_vote_no_wts <- readRDS("Data/pop_vote_no_wts.RDS")
-pop_vote_wts <- readRDS("Data/pop_vote_wts.RDS")
+pop_vote_no_wts <- readRDS("../Data/pop_vote_no_wts.RDS")
+pop_vote_wts <- readRDS("../Data/pop_vote_wts.RDS")
 
 vote <- ifelse(pop_vote_wts > 0.5, "Biden", "Trump")
 plot1_data <- data.frame(vote, pop_vote_wts)
@@ -46,4 +46,4 @@ plot1
 #   )
 # plot1
 
-ggsave(plot1, file = "Plots/pop_vote_wts.png", width = 5, height = 5)
+ggsave(plot1, file = "../Plots/pop_vote_wts.png", width = 5, height = 5)

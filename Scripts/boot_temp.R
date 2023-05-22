@@ -1,7 +1,7 @@
 library(tidyverse)
 set.seed(403)
 
-data <- read.csv("Data/31119913_National2020.csv")
+data <- read.csv("../Data/31119913_National2020.csv")
 
 cols <- str_split("age10
 sex

@@ -2,7 +2,7 @@ library(tidyverse)
 
 # Testing for independence with chi-squared
 
-data <- read.csv("Data/31119913_National2020.csv")
+data <- read.csv("../Data/31119913_National2020.csv")
 
 perform_chi_squared_tests <- function(df, significance_level = 0.05) {
   # Get the list of categorical variables from the dataset
