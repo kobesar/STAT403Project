@@ -13,7 +13,6 @@ party
 stanum
 sizeplac
 pres
-weight
 vote2016
 votemeth
 abortion
@@ -48,6 +47,7 @@ for(i in 1:1000) {
   samp <- data_pres_subset[j,]
   num_biden <- sum((samp$pres == "Joe Biden") * samp$weight)
   biden_perc2[i] <- num_biden / sum(samp$weight)
+  print(sum(samp$weight))
 }
 
 hist(biden_perc2)
@@ -59,7 +59,8 @@ saveRDS(biden_perc2, file = "pop_vote_wts.RDS")
 
 state_boot <- list()
 
-for (state in data_pres_subset$stanum) {
+for (state in unique(data_pres_subset$stanum)) {
+  print(state)
   temp <- data_pres_subset %>% 
     filter(stanum == !!state)
   
@@ -70,8 +71,8 @@ for (state in data_pres_subset$stanum) {
   for (i in 1:500) {
     j <- sample(n, n, replace = T)
     samp <- temp[j,]
-    num_biden <- sum((temp$pres == "Joe Biden") * temp$weight)
-    biden_perc_state[i] <- num_biden / sum(temp$weight)
+    num_biden <- sum((samp$pres == "Joe Biden") * samp$weight)
+    biden_perc_state[i] <- num_biden / sum(samp$weight)
   }
   
   state_boot[[state]] <- mean(biden_perc_state > 0.5)
