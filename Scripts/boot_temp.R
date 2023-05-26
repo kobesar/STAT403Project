@@ -5,6 +5,7 @@ data <- read.csv("../Data/31119913_National2020.csv")
 
 cols <- str_split("age10
 sex
+weight
 educ18
 income20
 racism20
@@ -68,14 +69,46 @@ for (state in unique(data_pres_subset$stanum)) {
   
   biden_perc_state <- c()
   
-  for (i in 1:500) {
+  for (i in 1:10000) {
     j <- sample(n, n, replace = T)
     samp <- temp[j,]
     num_biden <- sum((samp$pres == "Joe Biden") * samp$weight)
     biden_perc_state[i] <- num_biden / sum(samp$weight)
   }
   
-  state_boot[[state]] <- mean(biden_perc_state > 0.5)
+  state_boot[[trimws(state)]] <- mean(biden_perc_state > 0.5)
 }
 
 saveRDS(state_boot, file = "state_boot.RDS")
+
+state_boot_diff <- data.frame(state = unique(trimws(data_pres_subset$stanum)))
+
+for (sample_size in c(100, 1000, 10000, 100000)) {
+  state_biden <- list()
+  for (state in unique(data_pres_subset$stanum)) {
+    print(state)
+    temp <- data_pres_subset %>% 
+      filter(stanum == !!state)
+    
+    n <- nrow(temp)
+    
+    biden_perc_state <- c()
+    
+    for (i in 1:sample_size) {
+      j <- sample(n, n, replace = T)
+      samp <- temp[j,]
+      num_biden <- sum((samp$pres == "Joe Biden") * samp$weight)
+      biden_perc_state[i] <- num_biden / sum(samp$weight)
+    }
+    
+    state_biden[[trimws(state)]] <- mean(biden_perc_state > 0.5)
+  }
+  
+  state_boot_diff <- cbind(state_boot_diff, unlist(state_biden))
+}
+
+rownames(state_boot_diff) <- NULL
+
+colnames(state_boot_diff) <- c("state", "N100", "N1000", "N10000", "N100000")
+
+saveRDS(state_boot_diff, file = "state_boot_samp.RDS")
