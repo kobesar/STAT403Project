@@ -3,7 +3,8 @@ set.seed(403)
 
 data <- read.csv("../Data/31119913_National2020.csv")
 
-cols <- str_split("age10
+cols <- str_split("age
+weight
 sex
 educ18
 income20
@@ -79,3 +80,29 @@ for (state in unique(data_pres_subset$stanum)) {
 }
 
 saveRDS(state_boot, file = "state_boot.RDS")
+
+age_boot <- list()
+
+for(age_group in unique(data_pres_subset$age)) {
+  temp <- data_pres_subset %>%
+    filter(age == !!age_group)
+  n <- nrow(temp)
+  biden_perc_age <- c()
+  for(i in 1:500) {
+    j <- sample(n, n, replace = T)
+    samp <- temp[j,]
+    num_biden <- sum((samp$pres == "Joe Biden") * samp$weight)
+    biden_perc_age[i] <- num_biden / sum(samp$weight)
+  }
+  age_boot[[age_group]] <- biden_perc_age
+}
+
+age_boot <- data.frame(age_boot) %>%
+  select(-X.)
+age_boot <- pivot_longer(age_boot, cols = c(X45.64, X18.29, X30.44, X65.), names_to = "Age", values_to = "Percent")
+
+age_plot <- ggplot(data = age_boot) +
+  geom_density(mapping = aes(x = Percent, fill = Age), alpha = 0.5) +
+  labs(x = "Proportion") +
+  theme_light()
+ggsave(age_plot, file = "../Plots/age_pop_vote_wts.png", width = 5, height = 5)
