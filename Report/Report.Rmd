@@ -1,0 +1,28 @@
+---
+title: "Project Report"
+author: "Kai Jeffreys, Benjamin Jia, Rachael Ren, Kobe Sarausad"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+
+## Research Questions
+
+
+## Voting Bootstrap Outcomes
+
+
+## Logistic Model
+
+
+## Bootstrap of Coefficients
+
+
+## Conclusion
+

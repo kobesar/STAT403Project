@@ -52,6 +52,29 @@ abortion
 climatec", "\n")[[1]]
 
 data_subset <- data %>% 
-  select(cols)
+  dplyr::select(cols)
 
 perform_chi_squared_tests(data_subset)
+
+perform_chi_squared_tests(data)
+
+cols <- str_split("age
+sex
+educ18
+income20
+racism20
+sizeplac
+votemeth
+abortion
+climatec", "\n")[[1]]
+
+data_subset <- data %>% 
+  dplyr::select(cols)
+
+tab <- perform_chi_squared_tests(data_subset)
+
+ind_vars <- tab %>% 
+  filter(p_value > 0.00001) %>% 
+  pivot_longer(cols = 1:2) %>% 
+  pull(value) %>% 
+  unique()
