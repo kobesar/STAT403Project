@@ -102,7 +102,7 @@ data_train <- data_full_final[sample_i,]
 
 data_test <- data_full_final[-sample_i,]
 
-mod_final <- glm(Y_final ~ ., family = "binomial", data = data_train)
+mod_final <- glm(Y_final ~ ., family = "binomial", data = data_full_final)
 
 summary(mod_final)
 
@@ -131,3 +131,39 @@ for(i_BT in 1:B){
 }
 coeff_BT_lemp <- data.frame(coeff_BT_lemp)
 colnames(coeff_BT_lemp) = c("Intercept","gpa","gre")
+
+pred_data <- data_full_final[1:3,]
+pred_data[,2] <- c(0,0,1)
+pred_data[,3] <- c(1,0,0)
+pred_data[,4] <- c(0,0,0)
+pred_data[,5] <- c(0,0,0)
+pred_data[,6] <- c(0,1,0)
+pred_data[,7] <- c(0,0,1)
+pred_data[,8] <- c(0,0,0)
+pred_data[,9] <- c(0,0,1)
+pred_data[,10] <- c(0,0,0)
+pred_data[,11] <- c(0,1,0)
+pred_data[,12] <- c(0,0,0)
+pred_data[,13] <- c(1,0,0)
+pred_data[,14] <- c(0,0,0)
+pred_data[,15] <- c(0,1,0)
+pred_data[,16] <- c(0,0,0)
+pred_data[,17] <- c(0,0,1)
+pred_data[,18] <- c(1,0,0)
+pred_data[,19] <- c(0,0,0)
+pred_data[,20] <- c(0,1,1)
+pred_data[,21] <- c(0,0,0)
+pred_data[,22] <- c(0,0,0)
+pred_data[,23] <- c(0,0,1)
+pred_data[,24] <- c(0,1,0)
+pred_data[,25] <- c(0,0,0)
+pred_data[,26] <- c(1,0,0)
+pred_data[,27] <- c(0,1,0)
+pred_data[,28] <- c(0,0,1)
+pred_data[,29] <- c(0,0,0)
+pred_data[,30] <- c(1,0,0)
+pred_data[,31] <- c(0,0,0)
+pred_data[,32] <- c(0,1,0)
+pred_data[,33] <- c(1,0,0)
+pred_data[,34] <- c(0,0,0)
+predict(mod_final, pred_data, type = "response")
