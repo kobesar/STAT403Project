@@ -1,0 +1,26 @@
+---
+title: "Bootstrap of Coefficients"
+author: "Kobe Sarausad"
+date: "6/4/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+```{r}
+readRDS("../data/coefs_plot.RDS")
+```
+
+The fact that the `Omit` category has a wider range of values compared to the other categories in the coefficient distribution plot suggests that this category encompasses a diverse set of observations. The `Omit` category includes both Biden and Trump voters, indicating that these voters share some common characteristics that make them different from the other categories.
+
+The wider range of values for the `Omit` category could be due to the inherent variability in the characteristics of voters who choose not to disclose their preference or decide not to vote at all. It is possible that within this category, there are subgroups with different demographics, attitudes, or motivations that influence their decision to abstain or withhold their vote.
+
+The observed variability in the `Omit` category may also be reflective of the broader complexity and diversity of factors influencing voter behavior. It could indicate that the influence of other predictor variables on the outcome variable is attenuated or obscured within this category, making it more challenging to identify a consistent and significant effect.
+
+When interpreting the coefficient estimates, it is important to consider the context of the analysis, the characteristics of the dataset, and the potential limitations of the model. It may be valuable to further investigate the reasons behind the variability within the `Omit` category and explore additional variables or factors that could help explain this variation.
+
+Additionally, the wider range of values for the `Omit` category highlights the importance of considering the full range of possible outcomes and accounting for uncertainty when making inferences or predictions based on the logistic regression model. The bootstrapping approach used in this analysis provides an estimate of the uncertainty associated with the coefficient values, enabling a more robust understanding of the model's reliability and generalizability.
