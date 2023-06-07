@@ -27,7 +27,7 @@ We also conducted a bootstrap of each of the states. We wanted to be able to see
 
 ![Simulated Electoral Map](..\Plots\state_boot_map.png){width=50%}
 
-This simulation clearly indicates that Biden will win most states. However, this prediction is misguided, as many of the states that Biden wins a majority of the time here he did not in fact win in the actual election. This includes states that are clear Republican strongholds such as Alabama and Idaho, which Biden was not ever going to end up winning in 2020. This seems to be clear evidence of how polls overestimate the Democratic vote in elections (for more on this see the bibliography).
+This simulation clearly indicates that Biden will win most states. However, this prediction is misguided, as many of the states that Biden wins a majority of the time here he did not in fact win in the actual election. This includes states that are clear Republican strongholds such as Alabama and Idaho, which Biden was not ever going to end up winning in 2020. This is a finding that is evident in real life, as seen in this [NYT article](https://www.nytimes.com/2018/03/29/opinion/2016-exit-polls-election.html), democratic voters are often oversampled in polls which gives a bad representation of the whole country. Thus, we've shown how this is in effect in our analysis.
 
 One final bootstrap we did was a simulation of the popular vote by age. This allows us to get an idea of how each age group will vote, as well as its certainty. Below we have a violin plot, sub grouped by the age bracket of the voter. 
 
@@ -49,3 +49,8 @@ Other insights from this chart include that the omit response seems to have plen
 
 ## Conclusion
 
+With the analysis conducted using bootstrapping and logistic regression, we were able to predict that Biden does indeed win the 2020 election, as seen in the state bootstrapping. This result also portrayed another issue of sample bias, which is very prominent in today's polling world in America.
+
+When modeling, we found that some variables were more significant than other variables, due to the fact their respective categories seem to have lower p-values than other variables. Though our final model contained variables which were all significant, variables relating to the opinions of `Racism` and `Climate` turned out to be different than the other variables as all categories were deemed of pretty strong significance. In the real world, we believe that these variables are indeed pretty strong indicators on whether or not a person voted for Biden. Thus, we believe our model is somewhat valid. 
+
+It would be interesting to see if we can apply undersampling onto the dataset to rectify the issue of democratic over representation, to see how the results might change. Further, testing other tree-based models would be fascinating to see comparewd to our regression model.
