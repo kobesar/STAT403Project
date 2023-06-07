@@ -3,6 +3,7 @@ title: "Project Report"
 author: "Kai Jeffreys, Benjamin Jia, Rachael Ren, Kobe Sarausad"
 date: "`r Sys.Date()`"
 output: pdf_document
+urlcolor: blue
 ---
 
 ```{r setup, include=FALSE}
