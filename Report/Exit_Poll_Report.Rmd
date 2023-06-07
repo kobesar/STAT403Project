@@ -1,0 +1,49 @@
+---
+title: "Q SCI 403 Final Project Report"
+author: "Benjamin Jia"
+output: pdf_document
+---
+
+##### Introduction:
+
+The 2020 United States Presidential election marked a moment in our nation's history where political awareness and engagement all across the nation seemingly took an all time high. Given the context of the global Covid-19 pandemic where many people were forced to mail in ballots to the death of George Floyd which sparked a national cry for outrage against systemic racism, the 2020 presidential election took on even greater significance. Many citizens believed that the future of the United States of America solely depended on the outcome of this election. The 2020 United States Presidential election showcased how important every vote can be and as a group we chose to analyze whether or not an individual's vote can be accurately predicted from the available factors. In the end we had two main research questions:
+
+* Who do we predict will win the 2020 presidential election? (popular vote and electoral college)
+
+* Which variables are significant for predicting who a respondent voted for?
+
+We chose the data set, collected by Cornell, National Election Pool Poll: 2020 National Election Day Exit Poll. This data set contains a telephone survey and an election day exit poll. The survey consisted of demographic data, who each participant voted for, and other opinion questions. 
+
+
+
+\begin{table}[ht]
+\begin{tabular}{p{0.15\linewidth} | p{0.15\linewidth} | p{0.1\linewidth} | p{0.6\linewidth}}
+Variable & Variable Name & Data Type & Description \\ \hline
+Age & age10 & ordinal & Age group participant is a part of \\ \hline
+Sex & sex & nominal & Sex of the voter \\ \hline
+Education & educ18 & ordinal & Education level of the participant. \\ \hline
+Income & income20 & ordinal & Income bracket of participant. \\ \hline
+Racism & racism20 & ordinal & Is racism in the US… (the most important problem, one of many important problems, a minor problem, not a problem at all, omit) \\ \hline
+Life & life & ordinal & Describes whether or not the participant has a pessimist/optimist view of the world. \\ \hline
+Party & party & nominal & Party affiliation of the participant. \\ \hline
+State & statenum & nominal & State where the participant is voting from. \\ \hline
+City & sizeplac & ordinal & Size of the city where the participant is living in. \\ \hline
+Pres & pres & nominal & Who the participant voted for in the 2020 election. \\ \hline
+Weight & weight & continuous & How well the participant represents the population. \\ \hline
+2016 vote & vote2016 & nominal & Who the participant voted for in 2016 presidential election \\ \hline
+Voting method & votemeth & nominal & Voting method (election day, by mail, or early in-person) \\ \hline
+Abortion & abortion & ordinal & Which comes closest to your position? Abortion should be legal in all cases, legal in most cases, illegal in most cases, or illegal in all cases? \\ \hline
+Climate change & climatec & nominal & Do you think climate change, also known as global warming, is a serious problem? 
+
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
+
+
