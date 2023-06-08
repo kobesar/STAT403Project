@@ -2,14 +2,19 @@
 title: "2020 US Presidential Election Exit Poll Analysis"
 author: "Kai Jeffreys, Benjamin Jia, Rachael Ren, Kobe Sarausad"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: 
+  pdf_document:
+    fig_caption: yes
+    extra_dependencies: ["float"]
 urlcolor: blue
+
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.pos = "H")
 library(tidyverse)
 library(glmnet)
+library(png)
 ```
 
 # Introduction
@@ -20,13 +25,10 @@ The 2020 United States Presidential election marked a moment in our nation's his
 
 * Which variables are significant for predicting who a respondent voted for?
 
-We chose the data set, collected by Cornell, National Election Pool Poll: 2020 National Election Day Exit Poll. This data set contains a telephone survey and an election day exit poll. The survey consisted of demographic data, who each participant voted for, and other opinion questions. 
-
-**Table 1:** Variable Definitions
-
-\begin{table}[ht]
-\begin{tabular}{p{0.15\linewidth} | p{0.15\linewidth} | p{0.1\linewidth} | p{0.6\linewidth}}
-Variable & Variable Name & Data Type & Description \\ \hline
+\begin{table}[H]
+\begin{tabular}{|p{0.15\linewidth} | p{0.15\linewidth} | p{0.1\linewidth} | p{0.5\linewidth}|}
+\hline
+\textbf{Variable} &  \textbf{Variable Name} &  \textbf{Data Type} &  \textbf{Description} \\ \hline
 Age & age10 & ordinal & Age group participant is a part of \\ \hline
 Sex & sex & nominal & Sex of the voter \\ \hline
 Education & educ18 & ordinal & Education level of the participant. \\ \hline
@@ -41,30 +43,39 @@ Weight & weight & continuous & How well the participant represents the populatio
 2016 vote & vote2016 & nominal & Who the participant voted for in 2016 presidential election \\ \hline
 Voting method & votemeth & nominal & Voting method (election day, by mail, or early in-person) \\ \hline
 Abortion & abortion & ordinal & Which comes closest to your position? Abortion should be legal in all cases, legal in most cases, illegal in most cases, or illegal in all cases? \\ \hline
-Climate change & climatec & nominal & Do you think climate change, also known as global warming, is a serious problem? 
-
+Climate change & climatec & nominal & Do you think climate change, also known as global warming, is a serious problem? \\ \hline
 \end{tabular}
 \end{table}
+```{r,fig.cap="Data Dictionary",out.height="0%",echo=FALSE}
+knitr::include_graphics("../Plots/pop_vote_wts2.png")
+```
 
+We chose the data set, collected by Cornell, National Election Pool Poll: 2020 National Election Day Exit Poll. This data set contains a telephone survey and an election day exit poll. The survey consisted of demographic data, who each participant voted for, and other opinion questions.
 
 # Voting Bootstrap
 We first must cover a disclaimer over our use of bootstrap on this data. One of the main bootstrap is that each observation of data has equal chance of occurring. However, this data set is weighted, indicating that each observation has a different chance of occurring. To fix this, under the professor's instructions, we sampled the data the way you would using a bootstrap (meaning each observation is the same) and then applied the weights afterward. This allows us to obtain a more valid estimate using the data, while still conducting bootstrap.
 
 Our initial move was just to do a bootstrap just of the popular vote. We wanted to get a good estimate about the variance of outcomes of the election. Below, we have a histogram with simulated percentage of vote going to Biden on the horizontal axis.
 
-![Popular Vote Histogram](..\Plots\pop_vote_wts2.png){width=75%}
+```{r out.width="70%",fig.cap="Popular Vote Histogram",fig.align="center",echo=FALSE}
+knitr::include_graphics("../Plots/pop_vote_wts2.png", dpi = 300)
+```
 
 As is evident, Biden gets a majority of the votes in most of the bootstrap simulations, around eighty percent of them. However, it is not quite a done deal, as there are still twenty percent of the simulations in which Biden does not get the majority of the votes. 
 
 We also conducted a bootstrap of each of the states. We wanted to be able to see whether we could predict the 2020 election using bootstrap. Below, we have a simulated electoral map where blue indicates states in which Biden had over fifty percent of the vote in the majority of the bootstrap simulations. Meanwhile red indicates states where Biden received less than fifty percent of the vote in most of the simulation, implying that Trump is more likely to win.
 
-![Simulated Electoral Map](..\Plots\state_boot_map.png){width=50%}
+```{r out.width="70%",fig.cap="Bootstrap Results By State",fig.align="center",echo=FALSE}
+knitr::include_graphics("../Plots/state_boot_map.png", dpi = 300)
+```
 
 This simulation clearly indicates that Biden will win most states. However, this prediction is misguided, as many of the states that Biden wins a majority of the time here he did not in fact win in the actual election. This includes states that are clear Republican strongholds such as Alabama and Idaho, which Biden was not ever going to end up winning in 2020. This is a finding that is evident in real life, as seen in this [NYT article](https://www.nytimes.com/2018/03/29/opinion/2016-exit-polls-election.html), democratic voters are often oversampled in polls which gives a bad representation of the whole country. Thus, we've shown how this is in effect in our analysis.
 
 One final bootstrap we did was a simulation of the popular vote by age. This allows us to get an idea of how each age group will vote, as well as its certainty. Below we have a violin plot, sub grouped by the age bracket of the voter. 
 
-![Vote By Age Bracket](..\Plots\age_pop_vote_wts2.png){width=50%}
+```{r out.width="70%",fig.cap="Vote By Age Bracket",fig.align="center",echo=FALSE}
+knitr::include_graphics("../Plots/age_pop_vote_wts2.png", dpi = 300)
+```
 
 We can tell that the older a person gets, the less likely they will vote for Biden. As a result, the vast majority of the simulations show voters over 65 years old giving Biden less than 50 percent of the vote, as well as a majority of voters 45-64 years old doing the same. Meanwhile, Biden gets a majority in most of the 30-44 year old simulations and all of the 18-29 year old ones. However, we can also see that the 18-29 age bracket has by far the most variance. This may be due to how younger voters are less likely to respond to polls, meaning they will be underrepresented and thus are estimates of their voting patterns with be less certain.
 
@@ -78,7 +89,8 @@ Since all of our predictors were categorical, we used one-hot encoding to releve
 
 **Table 2:** One-hot Encoding Reference Levels
 
-\begin{tabular}{c|c}
+\begin{center}
+\begin{tabular}{|c|c|}
 \hline
   Predictor & Reference level\\
   \hline
@@ -93,8 +105,9 @@ Since all of our predictors were categorical, we used one-hot encoding to releve
   racism & Omit\\
   abortion & Omit\\
   life & Omit\\
-  climate change & Omit
+  climate change & Omit \\ \hline
 \end{tabular}
+\end{center}
 
 ```{r, include = FALSE}
 cols <- str_split("age
@@ -148,7 +161,9 @@ $\hat{\text{president}} = \beta_0 + \beta_1(\text{age}) + \beta_2(\text{sex}) + 
 
 $\beta_6(\text{size place}) + \beta_7(\text{voting method}) + \beta_8(\text{abortion}) + \beta_9(\text{climate change})$
 
-![](final_model_summary.png)
+```{r out.width="100%",fig.cap="Final Model Summary",fig.align="center",echo=FALSE}
+knitr::include_graphics("../Plots/final_model_summary.png", dpi = 300)
+```
 
 Each coefficient estimate indicates the change in log odds for voting Biden in comparison with the reference level. As we can see from the model output, at least one level for each predictor was significant at the $\alpha = 0.05$ level. The only predictors omitted from our final model were whether a respondent identified as LGBT, their opinion on face masks, and which region of the US they were from. Note that due to the nature of our predictors, there is likely collinearity.
 
@@ -174,7 +189,7 @@ Trends for other predictors were less clear, but still significant.
 
 We validated our final model by creating a confusion matrix for our test data.
 
-```{r, echo = FALSE, warning = FALSE, message=FALSE}
+```{r out.width="70%",fig.cap="Confusion Matrix",fig.align="center",echo=FALSE,warning=FALSE,message=FALSE}
 train <- readRDS("../data/data_train.RDS")
 test <- readRDS("../data/data_test.RDS")
 
@@ -222,7 +237,10 @@ As we can see from the confusion matrix, our model performed relatively well. Th
 # Bootstrap of Coefficients
 After creating our model through the aforementioned model selection process, we wanted to obtain an estimate of the variance of the coefficients. Since bootstrap is a way for us to estimate how much coefficients vary in a model, we decided to conduct a bootstrap on our model. The following chart are violin plots of every coefficient in our model, categorized by question. The colors below indicate whether the median of the coefficient is above or below zero. A blue coefficient means that the median coefficient is above zero, saying that in the majority of simulations responding a question this way means that person is more likely to vote for Biden. Meanwhile, a red coefficient is the reverse.
 
-![Distribution of Coefficients](..\Plots\coeff_boot.png)
+
+```{r out.width="70%",fig.cap="Distribution of Coefficients",fig.align="center",echo=FALSE}
+knitr::include_graphics("../Plots/coeff_boot.png", dpi = 300)
+```
 
 A few observations can be made from looking at this chart. One is that the intercept seems to be around zero, with slightly more of the simulations being above, which indicates that our reference levels lead to a voter close to the middle of the political spectrum. However, we can see that some of these coefficients are heavily dependent on the set reference level for that question, such as age and vote method, with all of their coefficients being on only one side of zero. 
 
