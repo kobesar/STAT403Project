@@ -25,6 +25,8 @@ The 2020 United States Presidential election marked a moment in our nation's his
 
 * Which variables are significant for predicting who a respondent voted for?
 
+We chose the data set, collected by Cornell, National Election Pool Poll: 2020 National Election Day Exit Poll. This data set contains a telephone survey and an election day exit poll. The survey consisted of demographic data, who each participant voted for, and other opinion questions.
+
 \begin{table}[H]
 \begin{tabular}{|p{0.15\linewidth} | p{0.15\linewidth} | p{0.1\linewidth} | p{0.5\linewidth}|}
 \hline
@@ -50,7 +52,6 @@ Climate change & climatec & nominal & Do you think climate change, also known as
 knitr::include_graphics("../Plots/pop_vote_wts2.png")
 ```
 
-We chose the data set, collected by Cornell, National Election Pool Poll: 2020 National Election Day Exit Poll. This data set contains a telephone survey and an election day exit poll. The survey consisted of demographic data, who each participant voted for, and other opinion questions.
 
 # Voting Bootstrap
 We first must cover a disclaimer over our use of bootstrap on this data. One of the main bootstrap is that each observation of data has equal chance of occurring. However, this data set is weighted, indicating that each observation has a different chance of occurring. To fix this, under the professor's instructions, we sampled the data the way you would using a bootstrap (meaning each observation is the same) and then applied the weights afterward. This allows us to obtain a more valid estimate using the data, while still conducting bootstrap.
