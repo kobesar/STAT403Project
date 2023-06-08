@@ -88,8 +88,6 @@ These predictors were selected because we were interested in whether they would 
 
 Since all of our predictors were categorical, we used one-hot encoding to relevel the categories. The following levels were set as the reference:
 
-**Table 2:** One-hot Encoding Reference Levels
-
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
@@ -109,6 +107,10 @@ Since all of our predictors were categorical, we used one-hot encoding to releve
   climate change & Omit \\ \hline
 \end{tabular}
 \end{center}
+
+```{r,fig.cap="One-hot Encoding Reference Levels",out.height="0%",echo=FALSE}
+knitr::include_graphics("../Plots/pop_vote_wts2.png")
+```
 
 ```{r, include = FALSE}
 cols <- str_split("age
